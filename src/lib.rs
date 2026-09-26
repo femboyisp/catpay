@@ -2,6 +2,7 @@
 
 pub mod backend;
 pub mod coin;
+pub mod deriver;
 pub mod error;
 pub mod store;
 pub mod types;
