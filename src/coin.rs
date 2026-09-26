@@ -98,8 +98,8 @@ impl Coin {
         }
     }
 
-    pub fn atomic_per_coin(&self) -> u64 {
-        10u64.pow(self.decimals() as u32)
+    pub fn atomic_per_coin(&self) -> u128 {
+        10u128.pow(self.decimals() as u32)
     }
 
     pub fn atomic_per_coin_u128(&self) -> u128 {
