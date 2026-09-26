@@ -7,12 +7,17 @@ pub mod coin;
 pub mod deriver;
 pub mod dogecoin;
 pub mod electrum;
+pub mod erc20;
 pub mod error;
 pub mod esplora;
+pub mod ethereum;
+pub mod evm;
 pub mod failover;
 pub mod litecoin;
 pub mod monero;
+pub mod solana;
 pub mod store;
+pub mod tron;
 pub mod types;
 
 pub use backend::PaymentBackend;
@@ -21,12 +26,20 @@ pub use bitcoincash::BitcoinCashWallet;
 pub use coin::{Coin, EvmTokenMeta, SplTokenMeta};
 pub use dogecoin::DogecoinWallet;
 pub use electrum::{AddressFormat, ElectrumSource};
+pub use erc20::Erc20Wallet;
 pub use error::PaymentError;
 pub use esplora::EsploraSource;
+pub use ethereum::{EthereumWallet, MultiRemoteEthClient};
+pub use evm::{derive_evm_address, EvmNativeWallet, EvmTokenWallet, MultiRemoteEvmClient};
 pub use failover::FailoverBackend;
 pub use litecoin::LitecoinWallet;
 pub use monero::MoneroWallet;
+pub use solana::{
+    build_solana_pay_url, extract_reference_param, generate_solana_reference,
+    MultiRemoteSolanaClient, SolanaWallet,
+};
 pub use store::{MockPaymentStore, PaymentStore};
+pub use tron::TronWallet;
 pub use types::{classify_health, to_i64, Health, NewSubaddress, PaymentService, Transfer};
 
 pub fn version() -> &'static str {
@@ -58,5 +71,10 @@ mod tests {
             AddressFormat::CashAddr => {}
             AddressFormat::Base58Check { .. } => panic!("unexpected format"),
         }
+
+        let ref_key = generate_solana_reference();
+        assert!(!ref_key.is_empty());
+        let sol_url = build_solana_pay_url("recipient", 1.0, &ref_key, None, "test");
+        assert_eq!(extract_reference_param(&sol_url), Some(ref_key));
     }
 }
