@@ -14,10 +14,12 @@ pub mod ethereum;
 pub mod evm;
 pub mod failover;
 pub mod litecoin;
+pub mod mercury;
 pub mod monero;
 pub mod oracle;
 pub mod solana;
 pub mod store;
+pub mod stripe;
 pub mod tron;
 pub mod types;
 
@@ -34,6 +36,7 @@ pub use ethereum::{EthereumWallet, MultiRemoteEthClient};
 pub use evm::{derive_evm_address, EvmNativeWallet, EvmTokenWallet, MultiRemoteEvmClient};
 pub use failover::FailoverBackend;
 pub use litecoin::LitecoinWallet;
+pub use mercury::{MercuryClient, MercuryTransaction, WireInstructions};
 pub use monero::MoneroWallet;
 pub use oracle::{aggregate, median, Oracle, OracleError, PricePoint};
 pub use solana::{
@@ -41,6 +44,9 @@ pub use solana::{
     MultiRemoteSolanaClient, SolanaWallet,
 };
 pub use store::{MockPaymentStore, PaymentStore};
+pub use stripe::{
+    CheckoutSessionResponse, CreateCheckoutParams, StripeCheckoutSession, StripeClient,
+};
 pub use tron::TronWallet;
 pub use types::{classify_health, to_i64, Health, NewSubaddress, PaymentService, Transfer};
 

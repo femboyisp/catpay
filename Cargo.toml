@@ -11,10 +11,12 @@ bech32 = "0.11"
 bip32 = "0.5.3"
 bs58 = "0.5"
 cashaddr = "0.2"
+chrono = { version = "0.4", features = ["serde"] }
 corepc-client = { version = "0.16.0", default-features = false, features = ["client-sync"] }
 data-encoding = "2.9.0"
 futures = "0.3.32"
 hex = "0.4.3"
+hmac = "0.12.1"
 metrics = "0.24.2"
 rand = "0.9.1"
 reqwest = { version = "0.12.18", default-features = false, features = ["json", "rustls-tls"] }
