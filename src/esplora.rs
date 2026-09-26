@@ -510,14 +510,8 @@ mod tests {
 
         let mock_addr = spawn_mock_esplora(bad_addr.clone()).await;
         let base = format!("http://{mock_addr}");
-        let source = EsploraSource::new(
-            &base,
-            Coin::Bitcoin,
-            BTC_TESTVEC_ZPUB,
-            1,
-            store.clone(),
-        )
-        .unwrap();
+        let source =
+            EsploraSource::new(&base, Coin::Bitcoin, BTC_TESTVEC_ZPUB, 1, store.clone()).unwrap();
 
         let transfers = source.incoming_transfers(0).await.unwrap();
         assert!(
@@ -543,14 +537,8 @@ mod tests {
 
         let mock_addr = spawn_mock_esplora("other-bad".to_string()).await;
         let base = format!("http://{mock_addr}");
-        let source = EsploraSource::new(
-            &base,
-            Coin::Bitcoin,
-            BTC_TESTVEC_ZPUB,
-            1,
-            store.clone(),
-        )
-        .unwrap();
+        let source =
+            EsploraSource::new(&base, Coin::Bitcoin, BTC_TESTVEC_ZPUB, 1, store.clone()).unwrap();
 
         let sub = source.new_subaddress("order").await.unwrap();
         assert_eq!(sub.index, 0);

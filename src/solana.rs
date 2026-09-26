@@ -1276,18 +1276,13 @@ mod tests {
             format!("solana:{recipient}?amount=0.005&reference={ref_key}&label=socks.cat");
 
         let store = Arc::new(MockPaymentStore::new());
-        store.open_addrs.lock().unwrap().insert(
-            "sol".to_string(),
-            vec![solana_pay_url.clone()],
-        );
+        store
+            .open_addrs
+            .lock()
+            .unwrap()
+            .insert("sol".to_string(), vec![solana_pay_url.clone()]);
 
-        let wallet = SolanaWallet::new_native(
-            client,
-            recipient.into(),
-            Coin::Solana,
-            1,
-            store,
-        );
+        let wallet = SolanaWallet::new_native(client, recipient.into(), Coin::Solana, 1, store);
 
         let transfers = wallet.incoming_transfers(0).await.unwrap();
         let t = transfers
@@ -1315,18 +1310,13 @@ mod tests {
             format!("solana:{recipient}?amount=0.005&reference={ref_key}&label=socks.cat");
 
         let store = Arc::new(MockPaymentStore::new());
-        store.open_addrs.lock().unwrap().insert(
-            "sol".to_string(),
-            vec![solana_pay_url.clone()],
-        );
+        store
+            .open_addrs
+            .lock()
+            .unwrap()
+            .insert("sol".to_string(), vec![solana_pay_url.clone()]);
 
-        let wallet = SolanaWallet::new_native(
-            client,
-            recipient.into(),
-            Coin::Solana,
-            32,
-            store,
-        );
+        let wallet = SolanaWallet::new_native(client, recipient.into(), Coin::Solana, 32, store);
 
         let transfers = wallet.incoming_transfers(0).await.unwrap();
         let t = transfers

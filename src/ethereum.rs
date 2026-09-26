@@ -491,7 +491,10 @@ impl PaymentBackend for EthereumWallet {
     /// for what this is/isn't). A per-address RPC failure is logged and
     /// skipped, not fatal — one bad address must not blank the whole gauge.
     async fn balance_atomic(&self) -> Result<Option<i64>, PaymentError> {
-        let addresses = self.store.recent_addresses("ethereum", MAX_BALANCE_ADDRESSES).await?;
+        let addresses = self
+            .store
+            .recent_addresses("ethereum", MAX_BALANCE_ADDRESSES)
+            .await?;
         if addresses.len() as i64 >= MAX_BALANCE_ADDRESSES {
             eprintln!(
                 "payments[ethereum]: wallet_balance_atomic scan capped at \
@@ -541,10 +544,7 @@ mod tests {
     fn parse_hex_u128_handles_prefix_and_empty() {
         assert_eq!(parse_hex_u128("0x0").unwrap(), 0);
         assert_eq!(parse_hex_u128("0x").unwrap(), 0);
-        assert_eq!(
-            parse_hex_u128("0xde0b6b3a7640000").unwrap(),
-            WEI_PER_ETH
-        );
+        assert_eq!(parse_hex_u128("0xde0b6b3a7640000").unwrap(), WEI_PER_ETH);
         assert_eq!(parse_hex_u128("ff").unwrap(), 255);
         assert!(parse_hex_u128("0xzz").is_err());
     }

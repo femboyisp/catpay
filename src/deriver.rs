@@ -50,10 +50,7 @@ pub fn derive_p2pkh(
 
 /// The `/0/index` child's `hash160(compressed pubkey)` — the shared P2PKH
 /// step behind [`derive_p2pkh`] and [`derive_cashaddr_p2pkh`].
-pub fn derive_p2pkh_hash160(
-    account_xpub: &str,
-    index: u32,
-) -> Result<[u8; 20], PaymentError> {
+pub fn derive_p2pkh_hash160(account_xpub: &str, index: u32) -> Result<[u8; 20], PaymentError> {
     let acct = XPub::from_str(account_xpub.trim())
         .map_err(|e| PaymentError::Rpc(format!("invalid extended pubkey: {e}")))?;
     let external = ChildNumber::new(0, false)

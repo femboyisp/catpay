@@ -228,7 +228,14 @@ impl EvmTokenWallet {
         store: Arc<dyn PaymentStore>,
     ) -> Result<Self, PaymentError> {
         let client = Arc::new(MultiRemoteEvmClient::new(url.to_owned(), vec![], 3, 3));
-        Self::new(client, xpub, contract_address, coin, min_confirmations, store)
+        Self::new(
+            client,
+            xpub,
+            contract_address,
+            coin,
+            min_confirmations,
+            store,
+        )
     }
 
     pub fn coin_name(&self) -> &str {
@@ -368,14 +375,8 @@ mod tests {
     async fn test_evm_native_wallet_new_subaddress_with_mock_store() {
         let store = Arc::new(MockPaymentStore::new());
         let xpub = "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8";
-        let wallet = EvmNativeWallet::connect(
-            "http://127.0.0.1:8545",
-            xpub,
-            Coin::Bnb,
-            15,
-            store,
-        )
-        .unwrap();
+        let wallet =
+            EvmNativeWallet::connect("http://127.0.0.1:8545", xpub, Coin::Bnb, 15, store).unwrap();
 
         let sub1 = wallet.new_subaddress("label1").await.unwrap();
         assert_eq!(sub1.index, 0);
