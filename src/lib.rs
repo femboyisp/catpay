@@ -1,18 +1,30 @@
 //! `catpay`: standalone cryptocurrency payment, derivation, and verification engine.
 
 pub mod backend;
+pub mod bitcoin;
+pub mod bitcoincash;
 pub mod coin;
 pub mod deriver;
+pub mod dogecoin;
+pub mod electrum;
 pub mod error;
+pub mod esplora;
 pub mod failover;
+pub mod litecoin;
 pub mod monero;
 pub mod store;
 pub mod types;
 
 pub use backend::PaymentBackend;
+pub use bitcoin::BitcoinWallet;
+pub use bitcoincash::BitcoinCashWallet;
 pub use coin::{Coin, EvmTokenMeta, SplTokenMeta};
+pub use dogecoin::DogecoinWallet;
+pub use electrum::{AddressFormat, ElectrumSource};
 pub use error::PaymentError;
+pub use esplora::EsploraSource;
 pub use failover::FailoverBackend;
+pub use litecoin::LitecoinWallet;
 pub use monero::MoneroWallet;
 pub use store::{MockPaymentStore, PaymentStore};
 pub use types::{classify_health, to_i64, Health, NewSubaddress, PaymentService, Transfer};
@@ -40,5 +52,11 @@ mod tests {
 
         let health = classify_health(10, 10, 1);
         assert_eq!(health, Health::Healthy);
+
+        let fmt = AddressFormat::CashAddr;
+        match fmt {
+            AddressFormat::CashAddr => {}
+            AddressFormat::Base58Check { .. } => panic!("unexpected format"),
+        }
     }
 }
