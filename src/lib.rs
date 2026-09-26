@@ -4,14 +4,18 @@ pub mod backend;
 pub mod coin;
 pub mod deriver;
 pub mod error;
+pub mod failover;
+pub mod monero;
 pub mod store;
 pub mod types;
 
 pub use backend::PaymentBackend;
 pub use coin::{Coin, EvmTokenMeta, SplTokenMeta};
 pub use error::PaymentError;
+pub use failover::FailoverBackend;
+pub use monero::MoneroWallet;
 pub use store::{MockPaymentStore, PaymentStore};
-pub use types::{classify_health, Health, NewSubaddress, PaymentService, Transfer};
+pub use types::{classify_health, to_i64, Health, NewSubaddress, PaymentService, Transfer};
 
 pub fn version() -> &'static str {
     env!("CARGO_PKG_VERSION")

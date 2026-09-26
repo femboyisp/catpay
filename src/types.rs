@@ -33,6 +33,10 @@ pub fn classify_health(headers: i64, blocks: i64, threshold: u64) -> Health {
     }
 }
 
+pub fn to_i64(value: u64) -> i64 {
+    i64::try_from(value).unwrap_or(i64::MAX)
+}
+
 #[derive(Clone)]
 pub struct PaymentService {
     pub coin: Coin,
@@ -61,5 +65,11 @@ mod tests {
     fn test_classify_health_saturating() {
         // If blocks is somehow ahead or negative math
         assert_eq!(classify_health(50, 100, 5), Health::Healthy);
+    }
+
+    #[test]
+    fn test_to_i64() {
+        assert_eq!(to_i64(100), 100);
+        assert_eq!(to_i64(u64::MAX), i64::MAX);
     }
 }
