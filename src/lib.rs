@@ -15,6 +15,7 @@ pub mod evm;
 pub mod failover;
 pub mod litecoin;
 pub mod monero;
+pub mod oracle;
 pub mod solana;
 pub mod store;
 pub mod tron;
@@ -34,6 +35,7 @@ pub use evm::{derive_evm_address, EvmNativeWallet, EvmTokenWallet, MultiRemoteEv
 pub use failover::FailoverBackend;
 pub use litecoin::LitecoinWallet;
 pub use monero::MoneroWallet;
+pub use oracle::{aggregate, median, Oracle, OracleError, PricePoint};
 pub use solana::{
     build_solana_pay_url, extract_reference_param, generate_solana_reference,
     MultiRemoteSolanaClient, SolanaWallet,
